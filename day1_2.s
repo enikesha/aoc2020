@@ -70,12 +70,36 @@ solve:
     sub $8, %r13
     call qs
 
+    mov %r12, %r15
+
+sum_3:
+    cmp %r13, %r15
+    jg exit
     mov $need_sum, %rbx
+    sub (%r15), %rbx
+    call sum_2
+    add $8, %r15
+    jmp sum_3
+
+sum_2:
+    push %r12
+    push %r13
 search:
     cmp %r13, %r12
-    jge not_found
-
-    mov (%r12), %rax
+    jl cont
+    pop %r13
+    pop %r12
+    ret
+cont:
+    cmp %r15, %r12
+    jne 1f
+    add $8, %r12
+    jmp search
+1:  cmp %r15, %r12
+    jne 2f
+    sub $8, %r13
+    jmp search
+2:  mov (%r12), %rax
     add (%r13), %rax
     cmp %rbx, %rax
     jz found
@@ -90,9 +114,13 @@ found:
     call print
     mov (%r13), %rax
     call print
+    mov (%r15), %rax
+    call print
     mov (%r12), %rax
-    mov (%r13), %rbx
-    mul %rbx
+    mov (%r13), %rcx
+    mul %rcx
+    mov (%r15), %rcx
+    mul %rcx
     call print
     jmp exit
 
