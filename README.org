@@ -26,5 +26,9 @@ awk -f day2_2.awk day2_input.txt
 ** 3.12: bash
 *** Part 1: Iterate over lines with offset modulus
 #+BEGIN_SRC bash
-bash day3_1.sh day3_input.txt
+bash day3_1.sh 3 1 day3_input.txt
+#+END_SRC
+*** Part 2: Run part 1 with different slopes
+#+BEGIN_SRC bash
+bash day3_2.sh day3_input.txt
 #+END_SRC

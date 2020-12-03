@@ -1,17 +1,23 @@
 #!/bin/bash
 
-# ./day3_1.sh day3_input.txt
+# ./day3_1.sh 3 1 day3_input.txt
 
+slope=$1
+down=$2
+x=0
+y=0
 trees=0
-offset=0
 while read line; do
-    cur=${line:$offset:1}
-    length=${#line}
-    let offset=$offset+3
-    let offset=$offset%$length
-    if [ $cur = "#" ] ; then
-        let trees++
+    cur=${line:$x:1}
+    if [ $y -eq 0 ] ; then
+        if [ $cur = "#" ] ; then
+            (( trees++ ))
+        fi
+        (( x += $slope ))
+        x=$(( $x % ${#line} ))
     fi
-    #printf 'Line %s, length %d cur %s offset %d\n' "$line" $length $cur $offset
-done <"${1:-/dev/stdin}"
-printf 'Total trees: %d\n' $trees
+    (( y++ ))
+    y=$(( $y % $down ))
+    #printf 'Line %s, cur %s x %d y %d, trees %d\n' "$line" $cur $x $y $trees
+done <"${3:-/dev/stdin}"
+echo $trees
