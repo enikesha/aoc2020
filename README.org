@@ -23,3 +23,8 @@ awk -f day2_1.awk day2_input.txt
 #+BEGIN_SRC bash
 awk -f day2_2.awk day2_input.txt
 #+END_SRC
+** 3.12: bash
+*** Part 1: Iterate over lines with offset modulus
+#+BEGIN_SRC bash
+bash day3_1.sh day3_input.txt
+#+END_SRC
