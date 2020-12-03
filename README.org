@@ -1,0 +1,25 @@
+* Advent of Code 2020
+
+** 1.12: x86_64 assembler
+*** Part 1: O(nlogn), quicksort with double-sided search
+#+BEGIN_SRC bash
+as --64 day1_1.s -o day1_1.o && ld -melf_x86_64 -s day1_1.o -o day1_1
+./day1_1 < day1_input.txt
+#+END_SRC
+
+*** Part 2: O(n2logn), same algo as part 1 but with outer loop of third term which is skipped in the main algo
+#+BEGIN_SRC bash
+as --64 day1_2.s -o day1_2.o && ld -melf_x86_64 -s day1_2.o -o day1_2
+./day1_2 < day1_input.txt
+#+END_SRC
+
+** 2.12: AWK
+*** Part 1: Regex cut out other chars then regex match repeated char
+#+BEGIN_SRC bash
+awk -f day2_1.awk day2_input.txt
+#+END_SRC
+
+*** Part 2: Basic check string elements
+#+BEGIN_SRC bash
+awk -f day2_2.awk day2_input.txt
+#+END_SRC
