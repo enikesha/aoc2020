@@ -1,5 +1,5 @@
 # as --64 day1_1.s -o day1_1.o && ld -melf_x86_64 -s day1_1.o -o day1_1
-# ./day1_1 < input.txt
+# ./day1_1 < day1_input.txt
 
 .set need_sum, 2020
 
