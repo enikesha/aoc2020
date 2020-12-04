@@ -32,3 +32,14 @@ bash day3_1.sh 3 1 day3_input.txt
 #+BEGIN_SRC bash
 bash day3_2.sh day3_input.txt
 #+END_SRC
+** 4.12: C
+*** Part 1: Use bitmask as fields set, pointer math to split fields
+#+BEGIN_SRC bash
+gcc day4_1.c -o day4_1
+./day4_1 < day4_input.txt
+#+END_SRC
+*** Part 2: Validation over part 1
+#+BEGIN_SRC bash
+gcc day4_2.c -o day4_2
+./day4_2 < day4_input.txt
+#+END_SRC
