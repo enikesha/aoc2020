@@ -43,3 +43,9 @@ gcc day4_1.c -o day4_1
 gcc day4_2.c -o day4_2
 ./day4_2 < day4_input.txt
 #+END_SRC
+** 5.12: C#
+Parse binary, use sequence sum formula to find missing element
+#+BEGIN_SRC bash
+cd day5
+dotnet run < input.txt
+#+END_SRC
