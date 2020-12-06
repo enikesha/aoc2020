@@ -49,3 +49,9 @@ Parse binary, use sequence sum formula to find missing element
 cd day5
 dotnet run < input.txt
 #+END_SRC
+** 6.12: C++
+std set with map
+#+BEGIN_SRC bash
+gcc day6.cpp -lstdc++ -o day6
+./day6 < input.txt
+#+END_SRC
