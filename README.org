@@ -55,3 +55,9 @@ std set with map
 gcc day6.cpp -lstdc++ -o day6
 ./day6 < input.txt
 #+END_SRC
+** 7.12: Clojure
+Stupid mashup of bfs and dfs
+#+BEGIN_SRC bash
+clj -X day7/part1 < day7_input.txt
+clj -X day7/part2 < day7_input.txt
+#+END_SRC
