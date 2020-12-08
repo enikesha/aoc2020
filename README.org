@@ -61,3 +61,9 @@ Stupid mashup of bfs and dfs
 clj -X day7/part1 < day7_input.txt
 clj -X day7/part2 < day7_input.txt
 #+END_SRC
+** 8.12: Common lisp
+Plain execution with history tracking and brute part2
+#+BEGIN_SRC bash
+sbcl --load day8.lisp --eval '(day8)' < day8_input.txt
+sbcl --load day8.lisp --eval '(day8-2)' < day8_input.txt
+#+END_SRC
