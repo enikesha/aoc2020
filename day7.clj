@@ -14,19 +14,15 @@
         (line-seq (java.io.BufferedReader. f))))
 
 (defn solve1 [[term & rest :as terms] result rules]
-  (if term
-    (let [inner (map first (filter #(some #{term} (map second (second %))) rules))]
-      (solve1 (concat rest inner) (distinct (concat result inner)) rules))
-    result))
+  (if-not term result
+          (let [inner (map first (filter #(some #{term} (map second (second %))) rules))]
+            (solve1 (concat rest inner) (distinct (concat result inner)) rules))))
 
 (defn solve2 [bag rules]
   (inc (reduce + (map (fn [[c n]] (* c (solve2 n rules))) (rules bag)))))
 
 (defn part1 [opts]
-  (prn
-   (count
-    (solve1 ["shiny gold"] [] (parse *in*)))))
+  (println (count (solve1 ["shiny gold"] [] (parse *in*)))))
 
 (defn part2 [opts]
-  (prn
-   (dec (solve2 "shiny gold" (parse *in*)))))
+  (println (dec (solve2 "shiny gold" (parse *in*)))))
