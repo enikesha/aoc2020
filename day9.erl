@@ -28,11 +28,11 @@ has_sum(Value, [Head | Rest]) ->
         _ -> yes
     end.
 
-solve1(Device, Preambule) -> process(Device, fun parse_int/1, fun(Int) -> solve1(Int, Preambule, []) end).
-solve1(Value, Add, Previous) when Add > 0 -> fun(I) -> solve1(I, Add - 1, [Value|Previous]) end;
-solve1(Value, 0, Previous) ->
-    case has_sum(Value, lists:sort(Previous)) of
-        yes -> fun(I) -> solve1(I, 0, [Value | lists:droplast(Previous)]) end;
+solve1(Device, Preambule) -> process(Device, fun parse_int/1, fun(Int) -> solve1(Int, Preambule, [], []) end).
+solve1(Value, Add, Sorted, Fifo) when Add > 0 -> fun(I) -> solve1(I, Add - 1, lists:merge([Value], Sorted), [Value|Fifo]) end;
+solve1(Value, 0, Sorted, Fifo) ->
+    case has_sum(Value, Sorted) of
+        yes -> fun(I) -> solve1(I, 0, lists:merge([Value], lists:delete(lists:last(Fifo), Sorted)), [Value | lists:droplast(Fifo)]) end;
         _ -> {stop, Value}
     end.
 
