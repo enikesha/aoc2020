@@ -67,3 +67,11 @@ Plain execution with history tracking and brute part2
 sbcl --load day8.lisp --eval '(day8)' < day8_input.txt
 sbcl --load day8.lisp --eval '(day8-2)' < day8_input.txt
 #+END_SRC
+** 9.12: Erlang
+Some recursion with moving buffers
+#+BEGIN_SRC bash
+erl
+> c(day9).
+> day9:part1("day9_input.txt", 25).
+> day9:part2("day9_input.txt", 69316178).
+#+END_SRC
