@@ -68,7 +68,7 @@ sbcl --load day8.lisp --eval '(day8)' < day8_input.txt
 sbcl --load day8.lisp --eval '(day8-2)' < day8_input.txt
 #+END_SRC
 ** 9.12: Erlang
-Some recursion with moving buffers
+Some recursion with moving buffers. Linear part2.
 #+BEGIN_SRC bash
 erl
 > c(day9).

@@ -9,12 +9,6 @@ part2(File, Sum) ->
     {ok, Device} = file:open(File, [read, read_ahead]),
     try solve2(Device, Sum) after file:close(Device) end.
 
-solve1(Device, Preambule) ->
-    process(Device, fun parse_int/1, fun(Int) -> solve1(Int, Preambule, []) end).
-
-solve2(Device, Sum) ->
-    process(Device, fun parse_int/1, fun(Int) -> solve2(Int, Sum, []) end).
-
 process(Device, Parser, Processor) ->
     case file:read_line(Device) of
         {ok, Line} -> case Processor(Parser(Line)) of
@@ -34,6 +28,7 @@ has_sum(Value, [Head | Rest]) ->
         _ -> yes
     end.
 
+solve1(Device, Preambule) -> process(Device, fun parse_int/1, fun(Int) -> solve1(Int, Preambule, []) end).
 solve1(Value, Add, Previous) when Add > 0 -> fun(I) -> solve1(I, Add - 1, [Value|Previous]) end;
 solve1(Value, 0, Previous) ->
     case has_sum(Value, lists:sort(Previous)) of
@@ -41,17 +36,10 @@ solve1(Value, 0, Previous) ->
         _ -> {stop, Value}
     end.
 
-find_sum(_, [], _) -> no;
-find_sum(Sum, [Head|Rest], Sublist) ->
-    case lists:sum(Sublist) of
-        S when S > Sum -> find_sum(Sum, [Head|Rest], lists:droplast(Sublist));
-        S when S < Sum -> find_sum(Sum, Rest, [Head|Sublist]);
-        _ -> Sublist
-    end.
-
-solve2(Value, Sum, Previous) ->
-    List = [Value|Previous],
-    case find_sum(Sum, List, []) of
-        no -> fun(I) -> solve2(I, Sum, List) end;
-        Sublist -> {stop, lists:min(Sublist) + lists:max(Sublist)}
+solve2(Device, Sum) -> process(Device, fun parse_int/1, fun(Int) -> solve2(Int, Sum, [], 0) end).
+solve2(Value, Sum, Sublist, SubSum) ->
+    case SubSum + Value of
+        S when S < Sum -> fun(I) -> solve2(I, Sum, [Value|Sublist], S) end;
+        S when S > Sum -> solve2(Value, Sum, lists:droplast(Sublist), SubSum - lists:last(Sublist));
+        _ -> {stop, lists:min([Value|Sublist]) + lists:max([Value|Sublist])}
     end.
