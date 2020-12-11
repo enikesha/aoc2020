@@ -75,9 +75,14 @@ erl
 > day9:part1("day9_input.txt", 25).
 > day9:part2("day9_input.txt", 69316178).
 #+END_SRC
-** 5.12: F#
+** 10.12: F#
 Calc continious ranges, manual calculated permutations based on range lenght
 #+BEGIN_SRC bash
 cd day10
 dotnet run
+#+END_SRC
+** 11.12: Go
+Simple loops
+#+BEGIN_SRC bash
+go run day11.go
 #+END_SRC
