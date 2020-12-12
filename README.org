@@ -81,8 +81,29 @@ Calc continious ranges, manual calculated permutations based on range lenght
 cd day10
 dotnet run
 #+END_SRC
-** 11.12: Go
+** 11.12
+*** Go
 Simple loops
 #+BEGIN_SRC bash
 go run day11.go
+#+END_SRC
+*** Assembler
+Tried to optimize on assembly level. Multiple tricks are used.
+#+BEGIN_SRC bash
+as --64 day11.s -o day11.o && ld -melf_x86_64 -s day11.o -o day11_as
+./day11_as day111_input.txt
+#+END_SRC
+
+This gives the following result looping the both parts 100 times:
+#+BEGIN_SRC bash
+enikesha@enikesha-desktop:~/dev/aoc2020$ time ./day11_as day11_input.txt > /dev/null
+
+real	0m5.127s
+user	0m5.125s
+sys	0m0.000s
+enikesha@enikesha-desktop:~/dev/aoc2020$ time ./day11_go > /dev/null
+
+real	0m12.658s
+user	0m13.009s
+sys	0m0.157s
 #+END_SRC
