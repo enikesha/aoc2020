@@ -107,3 +107,11 @@ real	0m12.658s
 user	0m13.009s
 sys	0m0.157s
 #+END_SRC
+** 10.12: Haskell
+Ok, haskell's learning curve is quite steep. Otherwise simple instruction processing
+#+BEGIN_SRC bash
+ghci
+> :l day12
+*Day12> day12
+*Day12> day12_1
+#+END_SRC
