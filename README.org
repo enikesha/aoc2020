@@ -121,7 +121,7 @@ Chinese reminder theorem implementation.
 javac day13.java && java day13
 #+END_SRC
 ** 14.12: ECMA Script
-Part one for now. Simple reduce with BigInt
+BigInt, reduce and explode masked addresses
 #+BEGIN_SRC bash
 paste in FF/Chrome console on advent day page
 #+END_SRC
