@@ -120,3 +120,8 @@ Chinese reminder theorem implementation.
 #+BEGIN_SRC bash
 javac day13.java && java day13
 #+END_SRC
+** 14.12: ECMA Script
+Part one for now. Simple reduce with BigInt
+#+BEGIN_SRC bash
+paste in FF/Chrome console on advent day page
+#+END_SRC
