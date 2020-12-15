@@ -125,8 +125,30 @@ BigInt, reduce and explode masked addresses
 #+BEGIN_SRC bash
 paste in FF/Chrome console on advent day page
 #+END_SRC
-** 15.12: Kotlin
+** 15.12:
+*** Kotlin
 Unboxed IntArray for perf optimization
 #+BEGIN_SRC bash
 kotlinc day15.kt -include-runtime -d day15.jar && java -jar day15.jar
+#+END_SRC
+*** Assembler
+All I could get out of it
+#+BEGIN_SRC bash
+as --64 day15.s -o day15.o && ld -melf_x86_64 -s day15.o -o day15
+#+END_SRC
+
+With the following results
+#+BEGIN_SRC bash
+enikesha@enikesha-desktop:~/dev/aoc2020$ time java -jar day15.jar
+30000000: 689
+
+real	0m0.759s
+user	0m0.791s
+sys	0m0.100s
+enikesha@enikesha-desktop:~/dev/aoc2020$ time ./day15
+689
+
+real	0m0.597s
+user	0m0.544s
+sys	0m0.052s
 #+END_SRC
