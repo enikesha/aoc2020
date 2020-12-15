@@ -126,7 +126,7 @@ Part one for now. Simple reduce with BigInt
 paste in FF/Chrome console on advent day page
 #+END_SRC
 ** 15.12: Kotlin
-Just MutableMap<Int,Int> with index juggling
+Unboxed IntArray for perf optimization
 #+BEGIN_SRC bash
 kotlinc day15.kt -include-runtime -d day15.jar && java -jar day15.jar
 #+END_SRC
