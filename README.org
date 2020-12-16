@@ -152,3 +152,8 @@ real	0m0.597s
 user	0m0.544s
 sys	0m0.052s
 #+END_SRC
+** 16.12: Lua
+Good ol' imperative
+#+BEGIN_SRC bash
+lua day16.lua < day16_input.txt
+#+END_SRC
