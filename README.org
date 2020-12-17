@@ -158,8 +158,7 @@ Good ol' imperative
 lua day16.lua < day16_input.txt
 #+END_SRC
 ** 16.12: Pascal
-Back to school!
+Back to school! Implemented generic solution, just set N in const section.
 #+BEGIN_SRC bash
 fpc day17.pas && ./day17 < day17_input.txt
-fpc day17_2.pas && ./day17_2 < day17_input.txt
 #+END_SRC
