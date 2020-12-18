@@ -15,28 +15,31 @@ const
 type
    StatusType = (Inactive, Active);
    DimType    = 1..N;
-   AxisType   = 0..AxisMax-1;
+   AxisType   = 0..AxisMax;
    IndexType  = 0..LastIndex;
    BoardType  = array [0..LastIndex] of StatusType;
    PointType  = array [1..N] of AxisType;
+   PBoardType = ^BoardType;
 
 var
-   Board : BoardType;
-   I     : IndexType;
-   Dim   : DimType;
+   PBoard        : PBoardType;
+   Point         : PointType;
+   I             : IndexType;
+   Dim           : DimType;
+   BoardMinPoint : PointType;
+   BoardMaxPoint : PointType;
 
-procedure Clear(var NewBoard : BoardType);
+procedure Clear(NewBoard: PBoardType);
 begin
-   for I in IndexType do NewBoard[I] := Inactive;
+   for I in IndexType do NewBoard^[I] := Inactive;
 end;
 
 procedure ReadBoard;
 var
    Line : String;
    C    : Char;
-   Off  : Integer;
 begin
-   Clear(Board);
+   Clear(PBoard);
 
    { Middle of the board }
    I := AxisMax shr 1;
@@ -45,27 +48,13 @@ begin
    while not eof do
    begin
       readln(Line);
-      Off := 0;
       for C in Line do
       begin
-         if C = '#' then Board[I+Off] := Active;
-         Inc(Off);
+         if C = '#' then PBoard^[I] := Active;
+         Inc(I);
       end;
-      I := I + AxisMax
+      I := I - Length(Line) + AxisMax;
    end
-end;
-
-function GetPoint(I : IndexType) : PointType;
-var
-   Point : PointType;
-begin
-   for Dim := 1 to N do
-   begin
-      Point[Dim] := I mod AxisMax;
-      I := I shr BoardBits
-   end;
-
-   GetPoint := Point
 end;
 
 function GetIndex(Point : PointType) : IndexType;
@@ -92,88 +81,129 @@ begin
    end
 end;
 
-procedure WriteBoard;
-var
-   MinPoint, MaxPoint, LastPoint, Point : PointType;
-   InBounds                             : Boolean;
+
+procedure IterateOrthotope(var I : IndexType; var Point, MinPoint, MaxPoint : PointType);
+begin
+   Inc(Point[1]);
+   Inc(I);
+   for Dim := 1 to N - 1 do
+      if Point[Dim] > MaxPoint[Dim] then
+      begin
+         Point[Dim] := MinPoint[Dim];
+         inc(Point[Dim+1]);
+         I := I - succ(MaxPoint[Dim]-MinPoint[Dim])*(1 shl (pred(Dim)*BoardBits)) + (1 shl (Dim*BoardBits))
+      end
+      else
+         break;
+end;
+
+procedure FindBoardBounds(var MinPoint, MaxPoint : PointType; offs : Integer);
 begin
    for Dim in DimType do
    begin
       MinPoint[Dim] := AxisMax-1;
       MaxPoint[Dim] := 0;
+      Point[Dim]    := 0;
+   end;
+
+   I := 0;
+   repeat
+      if PBoard^[I] = Active then
+         for Dim in DimType do
+         begin
+            if (Point[Dim]-offs) < MinPoint[Dim] then MinPoint[Dim] := Point[Dim] - offs;
+            if (Point[Dim]+offs) > MaxPoint[Dim] then MaxPoint[Dim] := Point[Dim] + offs
+         end;
+      IterateOrthotope(I, Point, BoardMinPoint, BoardMaxPoint);
+   until I = LastIndex;
+end;
+
+procedure WriteBoard;
+var
+   MinPoint  : PointType;
+   MaxPoint  : PointType;
+   LastPoint : PointType;
+   J         : IndexType;
+begin
+   for Dim in DimType do
+   begin
+      Point[Dim]     := 0;
       LastPoint[Dim] := 0
    end;
 
-   for I in IndexType do
-      if Board[I] = Active then
-      begin
-         Point := GetPoint(I);
-         for Dim in DimType do
-         begin
-            if Point[Dim] < MinPoint[Dim] then MinPoint[Dim] := Point[Dim];
-            if Point[Dim] > MaxPoint[Dim] then MaxPoint[Dim] := Point[Dim]
-         end
-      end;
+   FindBoardBounds(MinPoint, MaxPoint, 0);
+   WritePoint('Min ', MinPoint);
+   WritePoint('Max ', MaxPoint);
 
-   for I := GetIndex(MinPoint) to GetIndex(MaxPoint) do
+   Point := MinPoint;
+   I := GetIndex(MinPoint);
+   J := GetIndex(MaxPoint);
+
+   while I <= J do
    begin
-      Point := GetPoint(I);
-      InBounds := true;
-      for Dim in DimType do
-         if (Point[Dim] < MinPoint[Dim]) or (Point[Dim] > MaxPoint[Dim]) then InBounds := false;
-      if InBounds then
-      begin
-         for Dim := N downto 3 do
-            if Point[Dim] <> LastPoint[Dim] then
-            begin
-               writeln;
-               write(Axes[Dim], '=', Point[Dim] - (AxisMax shr 1))
-            end;
-         if Point[2] <> LastPoint[2] then Writeln;
-         if Board[I] = Active then
-            write('#')
-         else
-            write('.');
-         LastPoint := Point;
-      end;
+      for Dim := N downto 3 do
+         if Point[Dim] <> LastPoint[Dim] then
+         begin
+            writeln;
+            write(Axes[Dim], '=', Point[Dim] - (AxisMax shr 1))
+         end;
+      if Point[2] <> LastPoint[2] then Writeln;
+      if PBoard^[I] = Active then
+         write('#')
+      else
+         write('.');
+
+      LastPoint := Point;
+      IterateOrthotope(I,Point,MinPoint,MaxPoint);
    end;
    writeln
 end;
 
-procedure Simulate;
+procedure Simulate(PNextBoard : PBoardType );
 var
-   NewBoard   : BoardType;
-   NeighPoint : PointType;
-   Point      : PointType;
-   J, K       : IndexType;
-   Neighbors  : Integer;
+   MinPoint      : PointType;
+   MaxPoint      : PointType;
+   MinNeighPoint : PointType;
+   MaxNeighPoint : PointType;
+   NeighPoint    : PointType;
+   J, K, L       : IndexType;
+   Neighbors     : Integer;
 begin
-   Clear(NewBoard);
+   Clear(PNextBoard);
 
-   for I in IndexType do
+   FindBoardBounds(MinPoint, MaxPoint, 1);
+
+   Point := MinPoint;
+   I := GetIndex(MinPoint);
+   J := GetIndex(MaxPoint);
+
+   while I <= J do
    begin
-      Point := GetPoint(I);
-      Neighbors := 0;
-
-      for J := 0 to (3 ** N)-1 do
+      for Dim in DimType do
       begin
-         K := J;
-         for Dim in DimType do
-         begin
-            NeighPoint[Dim] := Max(Min(Point[Dim] + (K mod 3) - 1, AxisMax-1), 0);
-            K := K div 3
-         end;
-         if Board[GetIndex(NeighPoint)] = Active then Inc(Neighbors);
+         MinNeighPoint[Dim] := Point[Dim] - 1;
+         MaxNeighPoint[Dim] := Point[Dim] + 1
       end;
 
-      if Board[I] = Active then
-      begin
-         if (Neighbors = 3) or (Neighbors = 4) then NewBoard[I] := Active;
-      end
-      else if Neighbors = 3 then NewBoard[I] := Active;
-   end;
+      NeighPoint := MinNeighPoint;
+      K := GetIndex(MinNeighPoint);
+      L := GetIndex(MaxNeighPoint);
 
-   Board := NewBoard;
+      Neighbors := 0;
+      while K <= L do
+      begin
+         if PBoard^[K] = Active then Inc(Neighbors);
+         IterateOrthotope(K,NeighPoint,MinNeighPoint,MaxNeighPoint);
+      end;
+
+      if PBoard^[I] = Active then
+      begin
+         if (Neighbors = 3) or (Neighbors = 4) then PNextBoard^[I] := Active;
+      end
+      else if Neighbors = 3 then PNextBoard^[I] := Active;
+
+      IterateOrthotope(I,Point,MinPoint,MaxPoint);
+   end;
 end;
 
 function CountBoard : Integer;
@@ -182,23 +212,35 @@ var
 begin
    Counter := 0;
    for I in IndexType do
-      if Board[I] = Active then Inc(Counter);
+      if PBoard^[I] = Active then Inc(Counter);
 
    CountBoard := Counter
 end;
 
 var
-   Step : Integer;
+   Step       : Integer;
+   PNextBoard : PBoardType;
+   PTmpBoard  : PBoardType;
 begin
-   ReadBoard;
+   for Dim in DimType do
+   begin
+      BoardMinPoint[Dim] := 0;
+      BoardMaxPoint[Dim] := AxisMax-1
+   end;
+   New(PBoard);
+   New(PNextBoard);
 
+   ReadBoard;
    writeln('Input');
    WriteBoard;
 
    for Step := 1 to Steps do
    begin
-      Simulate;
-      WriteBoard;
+      Simulate(PNextBoard);
+      PTmpBoard  := PBoard;
+      PBoard     := PNextBoard;
+      PNextBoard := PTmpBoard;
       writeln('Step = ', Step, ', Count = ', CountBoard);
    end;
+   {WriteBoard;}
 end.

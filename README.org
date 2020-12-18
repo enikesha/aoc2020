@@ -158,7 +158,7 @@ Good ol' imperative
 lua day16.lua < day16_input.txt
 #+END_SRC
 ** 16.12: Pascal
-Back to school! Implemented generic solution, just set N in const section.
+Optimized generic solution. 100 times faster than the prevous one. On simulation iterates through bounding n-orthotope with direct flat array index calculation.
 #+BEGIN_SRC bash
 fpc day17.pas && ./day17 < day17_input.txt
 #+END_SRC
