@@ -1,5 +1,30 @@
 * Advent of Code 2020
-
+I'm planning to implement each day with new programming language from the sorted list [17/25]
+ - [X] 1.12	Assembler
+ - [X] 2.12	AWK
+ - [X] 3.12	Bash
+ - [X] 4.12	C
+ - [X] 5.12	C#
+ - [X] 6.12	C++
+ - [X] 7.12	Clojure
+ - [X] 8.12	Common Lisp
+ - [X] 9.12	Erlang
+ - [X] 10.12	F#
+ - [X] 11.12	Go
+ - [X] 12.12	Haskell
+ - [X] 13.12	Java
+ - [X] 14.12	JS
+ - [X] 15.12	Kotlin
+ - [X] 16.12	Lua
+ - [X] 17.12	Pascal
+ - [ ] 18.12	Perl
+ - [ ] 19.12	PHP
+ - [ ] 20.12	Python
+ - [ ] 21.12	Ruby
+ - [ ] 22.12	Rust
+ - [ ] 23.12	Scala
+ - [ ] 24.12	Scheme
+ - [ ] 25.12	T-SQL
 ** 1.12: x86_64 assembler
 *** Part 1: O(nlogn), quicksort with double-sided search
 #+BEGIN_SRC bash
