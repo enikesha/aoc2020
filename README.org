@@ -1,5 +1,5 @@
 * Advent of Code 2020
-I'm planning to implement each day with new programming language from the sorted list [17/25]
+I'm planning to implement each day with new programming language from the sorted list [18/25]
  - [X] 1.12	Assembler
  - [X] 2.12	AWK
  - [X] 3.12	Bash
@@ -17,7 +17,7 @@ I'm planning to implement each day with new programming language from the sorted
  - [X] 15.12	Kotlin
  - [X] 16.12	Lua
  - [X] 17.12	Pascal
- - [ ] 18.12	Perl
+ - [X] 18.12	Perl
  - [ ] 19.12	PHP
  - [ ] 20.12	Python
  - [ ] 21.12	Ruby
@@ -182,8 +182,13 @@ Good ol' imperative
 #+BEGIN_SRC bash
 lua day16.lua < day16_input.txt
 #+END_SRC
-** 16.12: Pascal
+** 17.12: Pascal
 Optimized generic solution. 100 times faster than the prevous one. On simulation iterates through bounding n-orthotope with direct flat array index calculation.
 #+BEGIN_SRC bash
 fpc day17.pas && ./day17 < day17_input.txt
+#+END_SRC
+** 18.12: Perl
+Shit-crafted calculator. Char level parse into reverse polish notation with evaluation as a second step.
+#+BEGIN_SRC bash
+perl day18.pl day18_input.txt
 #+END_SRC
