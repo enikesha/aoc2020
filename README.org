@@ -1,5 +1,5 @@
 * Advent of Code 2020
-I'm planning to implement each day with new programming language from the sorted list [20/25]
+I'm planning to implement each day with new programming language from the sorted list [21/25]
  - [X] 1.12	Assembler
  - [X] 2.12	AWK
  - [X] 3.12	Bash
@@ -20,7 +20,7 @@ I'm planning to implement each day with new programming language from the sorted
  - [X] 18.12	Perl
  - [X] 19.12	PHP
  - [X] 20.12	Python
- - [ ] 21.12	Ruby
+ - [X] 21.12	Ruby
  - [ ] 22.12	Rust
  - [ ] 23.12	Scala
  - [ ] 24.12	Scheme
@@ -201,4 +201,9 @@ php day19.php day19_input.txt
 I'm not proud of it at all :( But at least it works. It took me more time than any other day by a big margin.
 #+BEGIN_SRC bash
 python day20.py < day20_input.txt
+#+END_SRC
+** 21.12: Ruby
+Set's intersections for elimination
+#+BEGIN_SRC bash
+ruby day21.rb < day21_input.txt
 #+END_SRC
