@@ -1,5 +1,5 @@
 * Advent of Code 2020
-I'm planning to implement each day with new programming language from the sorted list [19/25]
+I'm planning to implement each day with new programming language from the sorted list [20/25]
  - [X] 1.12	Assembler
  - [X] 2.12	AWK
  - [X] 3.12	Bash
@@ -19,7 +19,7 @@ I'm planning to implement each day with new programming language from the sorted
  - [X] 17.12	Pascal
  - [X] 18.12	Perl
  - [X] 19.12	PHP
- - [ ] 20.12	Python
+ - [X] 20.12	Python
  - [ ] 21.12	Ruby
  - [ ] 22.12	Rust
  - [ ] 23.12	Scala
@@ -192,8 +192,13 @@ Shit-crafted calculator. Char level parse into reverse polish notation with eval
 #+BEGIN_SRC bash
 perl day18.pl day18_input.txt
 #+END_SRC
-** 18.12: PHP
+** 19.12: PHP
 More shit :) I think it's kinda general, no any ties to my input or special 8/11 handling.
 #+BEGIN_SRC bash
 php day19.php day19_input.txt
+#+END_SRC
+** 20.12: Python
+I'm not proud of it at all :( But at least it works. It took me more time than any other day by a big margin.
+#+BEGIN_SRC bash
+python day20.py < day20_input.txt
 #+END_SRC
