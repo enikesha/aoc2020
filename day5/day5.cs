@@ -8,6 +8,10 @@ namespace day5
     {
         static void Main(string[] args)
         {
+            DateTime? test = null;
+            Console.WriteLine($"Test nullable: {test}");
+
+
             IEnumerable<string> ReadLines() {string l; while ((l=Console.ReadLine())!=null){yield return l;}};
             Console.WriteLine(new[]{ReadLines().Select(l=>l.Select(c=>(c=='B'||c=='R')?1:0).Aggregate(0,(a,x)=>a*2+x))
                                                .Aggregate((min:1024,max:0,sum:0),(a,i)=>(Math.Min(i,a.min),Math.Max(i,a.max),a.sum+i))}
