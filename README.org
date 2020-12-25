@@ -1,5 +1,5 @@
 * Advent of Code 2020
-I'm planning to implement each day with new programming language from the sorted list [23/25]
+I'm planning to implement each day with new programming language from the sorted list [24/25]
  - [X] 1.12	Assembler
  - [X] 2.12	AWK
  - [X] 3.12	Bash
@@ -22,7 +22,7 @@ I'm planning to implement each day with new programming language from the sorted
  - [X] 20.12	Python
  - [X] 21.12	Ruby
  - [X] 22.12	Rust
- - [ ] 23.12	Scala
+ - [X] 23.12	Scala
  - [X] 24.12	Scheme
  - [ ] 25.12	T-SQL
 ** 1.12: x86_64 assembler
@@ -211,6 +211,11 @@ ruby day21.rb < day21_input.txt
 Direct rules implementation. Quite nice language, but borrow checker needs some time to get used to.
 #+BEGIN_SRC bash
 rustc day22.rs && ./day22 < day22_input.txt
+#+END_SRC
+** 23.12: Scala
+Imperative one due to performance. Using Array[Int] as label->next index.
+#+BEGIN_SRC bash
+scalac day23.scala && scala day23
 #+END_SRC
 ** 24.12: Scheme
 Unoptimized hash tables over complex numbers as position
