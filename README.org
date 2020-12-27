@@ -1,5 +1,5 @@
 * Advent of Code 2020
-I'm planning to implement each day with new programming language from the sorted list [24/25]
+I'm planning to implement each day with new programming language from the sorted list [25/25]
  - [X] 1.12	Assembler
  - [X] 2.12	AWK
  - [X] 3.12	Bash
@@ -24,7 +24,7 @@ I'm planning to implement each day with new programming language from the sorted
  - [X] 22.12	Rust
  - [X] 23.12	Scala
  - [X] 24.12	Scheme
- - [ ] 25.12	T-SQL
+ - [X] 25.12	T-SQL
 ** 1.12: x86_64 assembler
 *** Part 1: O(nlogn), quicksort with double-sided search
 #+BEGIN_SRC bash
@@ -221,4 +221,9 @@ scalac day23.scala && scala day23
 Unoptimized hash tables over complex numbers as position
 #+BEGIN_SRC bash
 guile day24.scm < day24_input.txt
+#+END_SRC
+** 25.12: T-SQL
+Plpgsql imperative procedural bruteforce :( But that finishes the whole story)
+#+BEGIN_SRC bash
+sudo -u postgres psql -f day25.sql
 #+END_SRC
